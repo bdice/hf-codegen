@@ -9,9 +9,9 @@ FEATHER_FORMAT = "*.ftr"
 
 if __name__ == "__main__":
     folder_path = snapshot_download(
-        repo_id=REPO_ID, allow_patterns=f"*.{FEATHER_FORMAT}", repo_type="dataset"
+        repo_id=REPO_ID, allow_patterns=FEATHER_FORMAT, repo_type="dataset"
     )
-    feather_files = glob.glob(f"{folder_path}/raw_csvs/*.{FEATHER_FORMAT}")
+    feather_files = glob.glob(f"{folder_path}/{FEATHER_FORMAT}")
     print(folder_path, len(feather_files))
 
     all_dfs = []

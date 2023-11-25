@@ -56,9 +56,8 @@ def upload_to_hub(file_format: str, repo_id: str):
     repo_id = create_repo(repo_id=repo_id, exist_ok=True, repo_type="dataset").repo_id
 
     with tempfile.TemporaryDirectory() as tmpdirname:
-        os.makedirs(tmpdirname)
-        command = f"mv *.{file_format} {tmpdirname}"
-        _ = subprocess.run(command.split())
+        command = f"cp *.{file_format} {tmpdirname}"
+        _ = subprocess.run(command, shell=True)
         api.upload_folder(repo_id=repo_id, folder_path=tmpdirname, repo_type="dataset")
 
 

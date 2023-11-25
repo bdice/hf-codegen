@@ -7,7 +7,7 @@ ORG = "rapidsai"
 MIRROR_DIRECTORY = "rapidsai_public_repos"
 
 
-def get_repos(username, access_token=None, include_fork=False):
+def get_repos(username, access_token=None):
     """Fetches repositories for a particular GitHub user.
 
     Courtesy: Chansung Park.
@@ -17,12 +17,8 @@ def get_repos(username, access_token=None, include_fork=False):
 
     results = []
     for repo in user.get_repos():
-        if repo.fork is False:
+        if not repo.fork and not repo.archived:
             results.append(repo.name)
-        else:
-            if include_fork is True:
-                results.append(repo.name)
-
     return results
 
 
