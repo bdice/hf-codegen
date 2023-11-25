@@ -3,8 +3,8 @@ import subprocess
 from multiprocessing import Pool
 from github import Github
 
-ORG = "huggingface"
-MIRROR_DIRECTORY = "hf_public_repos"
+ORG = "rapidsai"
+MIRROR_DIRECTORY = "rapidsai_public_repos"
 
 
 def get_repos(username, access_token=None, include_fork=False):

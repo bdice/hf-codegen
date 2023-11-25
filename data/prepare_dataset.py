@@ -8,8 +8,8 @@ from huggingface_hub import HfApi, create_repo
 import tempfile
 import subprocess
 
-MIRROR_DIRECTORY = "hf_public_repos"
-DATASET_ID = "hf-codegen"
+MIRROR_DIRECTORY = "rapidsai_public_repos"
+DATASET_ID = "rapids-codegen"
 SERIALIZE_IN_CHUNKS = 10000
 FEATHER_FORMAT = "ftr"
 
