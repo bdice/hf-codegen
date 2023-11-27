@@ -10,8 +10,9 @@ import subprocess
 
 MIRROR_DIRECTORY = "rapidsai_public_repos"
 DATASET_ID = "rapids-codegen"
-SERIALIZE_IN_CHUNKS = 10000
+SERIALIZE_IN_CHUNKS = False
 FEATHER_FORMAT = "ftr"
+PARQUET_FORMAT = "parquet"
 
 # Block the following formats.
 IMAGE = ["png", "jpg", "jpeg", "gif"]
@@ -134,7 +135,7 @@ def read_repository_files(directory) -> pd.DataFrame:
             ):
                 df_path = f"df_chunk_{chunk_flag}_{len(df)}.{FEATHER_FORMAT}"
                 print(f"Serializing dataframe to {df_path}...")
-                df.reset_index().to_feather(df_path)
+                df.reset_index().to_parquet(df_path)
                 del df
                 df = pd.DataFrame(columns=["repo_id", "file_path", "content"])
                 chunk_flag += 1
@@ -145,7 +146,7 @@ def read_repository_files(directory) -> pd.DataFrame:
 if __name__ == "__main__":
     df = read_repository_files(MIRROR_DIRECTORY)
     print("DataFrame created, creating dataset...")
-    upload_to_hub(file_format=FEATHER_FORMAT, repo_id=DATASET_ID)
+    upload_to_hub(file_format=PARQUET_FORMAT, repo_id=DATASET_ID)
     print(f"{FEATHER_FORMAT} files uploaded to the Hub.")
     if not SERIALIZE_IN_CHUNKS:
         dataset = Dataset.from_pandas(df)
